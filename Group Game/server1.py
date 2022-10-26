@@ -1,5 +1,4 @@
 import socket
-from inspect import isclass
 from colorama import init
 from colorama import Fore, Back, Style
 import inspect
@@ -82,7 +81,6 @@ def server_program():
     HEADER = 64 
     FORMAT = 'utf-8'
     SERVER = socket.gethostbyname(socket.gethostname()) #get SERVER automatically for u
-    DISCONNECT_MESSAGE = "!DISCONNECT"
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # get instance
     server_socket.bind((host, port))  # bind host address and port together
@@ -92,9 +90,12 @@ def server_program():
     print(f"[LISTENING] Server is listening on {SERVER}")
     conn, address = server_socket.accept()  # accept new connection
 
-    P1_name = input("Please input your name: ")
-    # server_socket.send(P1_name.encode(FORMAT))
+    p2_name = conn.recv(HEADER).decode(FORMAT)
+    print(f"You are now chatting with {p2_name}")
 
+    P1_name = input("Please input your name: ")
+    conn.send(P1_name.encode(FORMAT))
+    
     connected = True
     while connected:
         data = conn.recv(HEADER).decode(FORMAT)
@@ -102,9 +103,10 @@ def server_program():
             # if data is not received break
             break
         
-        print(Fore.WHITE, f"[{P1_name} - {socket.gethostbyname(host)}]")
-        print(f"Received a message from connected client: {data}", Fore.WHITE)
+        print(Fore.YELLOW + f"[{P1_name} - {socket.gethostbyname(host)}]")
+        print(Fore.CYAN, f"Received a message from {p2_name}: {data}")
         data = input(' >>> ')
+        
         conn.send(data.encode())  # send data to the client
 
     conn.close()  # close the connection

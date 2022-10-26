@@ -1,5 +1,4 @@
 import socket
-from inspect import isclass
 from colorama import init
 from colorama import Fore, Back, Style
 init()
@@ -10,22 +9,24 @@ def client_program():
     port = 5000  # socket server port number
     HEADER = 64 
     FORMAT = 'utf-8'
-    DISCONNECT_MESSAGE = "!DISCONNECT"
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
     P2_name = input("Please input your name: ")
+    client_socket.send(P2_name.encode(FORMAT))
+    p1_name = client_socket.recv(HEADER).decode(FORMAT)
+    print(f"You are now chatting with {p1_name}")
     message = input(" >>> ")  # take input
 
-    while message.lower().strip() != 'bye':
+    while message.lower().strip() != 'exit()':
         client_socket.send(message.encode(FORMAT))  # send message
         data = client_socket.recv(HEADER).decode(FORMAT)  # receive response
 
-        print(Fore.CYAN, f'[{P2_name} - {socket.gethostbyname(host)}]')
-        print(Fore.CYAN, f"Received a message from server {data}")  # show in terminal
+        print(Fore.YELLOW + f'[{P2_name} - {socket.gethostbyname(host)}]')
+        print(Fore.CYAN, f"Received a message from {p1_name}: {data}")  # show in terminal
 
-        message = input(" -> ")  # again take input
+        message = input( " >>> ")  # again take input
 
     client_socket.close()  # close the connection
 
