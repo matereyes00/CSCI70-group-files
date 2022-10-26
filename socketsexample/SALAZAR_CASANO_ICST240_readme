@@ -1,0 +1,65 @@
+Jonathan DLS. Casano			:	Othello Game Simulation using SoCkeTz in C
+Christopher Salazar			:
+ICST240							:
+P1									:
+______________________________________________________________________________________
+
+::-before you read this-::
+	-> if opened in a linux based server, go to edit preferences, and disable text wrapping.
+	-> if opened in a windows based server, go to format and disable text wrapping.
+
+::List of files in this folder
+	-> SALAZAR_CASANO_ICST240_SERVER.c
+	-> SALAZAR_CASANO_ICST240_SERVER.c
+	-> SALAZAR_CASANO_ICST240_readme
+	-> compile.sh
+
+::procedures to play using one computer unit
+	-> extract files to your chosen directory
+	-> if necessary, change the permission of compile.sh by
+		->> opening a terminal (ctrl + alt + t)
+		->> go to the directory where you've extracted the files
+		->> type in 'chmod a+x server.c; chmod a+x client.c'
+	-> run compile.sh
+	-> you should by now find in the current directory 2 new files
+		->> SALAZAR_CASANO_ICST240_SERVER.exe
+		->> SALAZAR_CASANO_ICST240_CLIENT.exe
+	-> in your current terminal run the server program by typing './SALAZAR_CASANO_ICST240_SERVER <port number>' where <port>
+	-> open another terminal and run the client program by
+		->> changing the directory to where your extracted files are (optional)
+		->> type in the terminal './SALAZAR_CASANO_ICST240_CLIENT localhost <port number>' where port number is the same specified port number for the server program
+	-> play and enjoy
+
+::procedures to play using two computer units
+	-> extract files in both computers, preferably in the same directories
+	-> if necessary, change the permission of compile.sh by
+		->> opening a terminal (ctrl + alt + t)
+		->> go to the directory where you've extracted the files
+		->> type in 'chmod a+x SALAZAR_CASANO_ICST240_SERVER.c; chmod a+x SALAZAR_CASANO_ICST240.c'
+	-> run compile.sh
+	-> you should by now find in the current directory 2 new files
+		->> SALAZAR_CASANO_ICST240_SERVER.exe
+		->> SALAZAR_CASANO_ICST240_CLIENT.exe
+	-> if you are the server
+		->> open a terminal and run SALAZAR_CASANO_ICST240_SERVER.c using the similar instruction stated above.
+		->> wait for the client to connect
+		->> play and enjoy
+	-> if you are the client
+		->> open a terminal and run SALAZAR_CASANO_ICST240_CLIENT.c using this syntax		
+		->> ./SALAZAR_CASANO_ICST240_CLIENT <IP address> <port number>' where port number is the same specified port number for the server program and IP address is the IP machine IP of the computer running the server program
+		->> play and enjoy
+::instructions
+	A: commands 
+		-> number keys 1 - 5				--------choose columns to drop tokens to
+		-> enter key						--------drop token
+	B: special inputs
+		-> -1									--------force quit game
+		-> 1 and 0							--------repeat or abort game upon end game prompt
+		-> <your personal msg>			--------if you choose to not continue, you will be asked to send your opponent a goodbye message.,., in order to develop the spirit of camaraderie and promote world peace., =] this is in string format
+	C: game play
+		-> choosing a column would allow a user to drop a token to the bottom most layer of that column, unless otherwise occupied by a token previously dropped by the opponent or by the same player, in which case it'll occupy the layer above it.
+		-> game ends when a player is able to tally three of his tokens either horizontally, vertically or diagonally. 
+	D: tips
+		-> diagonal winning tallies are ALWAYS hard to spot. be one the lookout for diagonals
+		-> column 2 and 4 are strategic columns to put in your first tokens... =]
+______________________________________________________________________________________
