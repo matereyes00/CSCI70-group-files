@@ -1,6 +1,7 @@
 import socket
 from colorama import init
 from colorama import Fore, Back, Style
+from art import *
 init()
 
 def start_rps(p1Move, p2Move):
@@ -87,11 +88,13 @@ def client_program():
     client_socket.connect((host, port))  # connect to the server
 
     global p2_name, p1_name, p2_move, p1_move
+    game_title=text2art("RPS",font='block',chr_ignore=True)
+    print(game_title)
 
     p2_name = input("Please input your name: ")
     client_socket.send(p2_name.encode(FORMAT))
     p1_name = client_socket.recv(HEADER).decode(FORMAT)
-    print(f"You are now chatting with {p1_name}")
+    print(f"You are player 2. You are now playing with {p1_name}")
     p2_move = input(" >>> ")  # take input of p2move
 
     while p2_move.lower().strip() != 'exit()':

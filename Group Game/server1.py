@@ -1,7 +1,7 @@
 import socket
 from colorama import init
 from colorama import Fore, Back, Style
-import inspect
+from art import *
 init()
 
 def server_program():
@@ -21,12 +21,14 @@ def server_program():
     conn, address = server_socket.accept()  # accept new connection
 
     global p2_name, p1_name, p2_move, p1_move
+    game_title=text2art("RPS",font='block',chr_ignore=True)
+    print(game_title)
 
     p1_name = input("Please input your name: ")
     conn.send(p1_name.encode(FORMAT))
 
     p2_name = conn.recv(HEADER).decode(FORMAT)
-    print(f"You are now chatting with {p2_name}")
+    print(f"You are player 1. You are now playing with {p2_name}")
 
     connected = True
     while connected:
