@@ -95,8 +95,10 @@ def client_program():
     client_socket.send(p2_name.encode(FORMAT))
     p1_name = client_socket.recv(HEADER).decode(FORMAT)
     print(f"You are player 2. You are now playing with {p1_name}")
+    print(f"Please choose 'Rock', 'Paper', or 'Scissors'")
     p2_move = input(" >>> ")  # take input of p2move
-
+    
+    
     while p2_move.lower().strip() != 'exit()':
         client_socket.send(p2_move.encode(FORMAT))  # send message
         p1_move = client_socket.recv(HEADER).decode(FORMAT)  # receive response
