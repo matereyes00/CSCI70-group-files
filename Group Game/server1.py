@@ -26,9 +26,8 @@ def scoreboard():
 
 def start_rps(p1Move, p2Move):
     moves = ["scissors", "paper", "rock"]
-    # p1_name_answers = []
-    # p2_name_answers = []
-    
+    wins = []
+    loses = []
     while True:
         p1Move = p1Move.lower()
         p2Move = p2Move.lower()
@@ -72,12 +71,19 @@ def start_rps(p1Move, p2Move):
                     print(f"{p2_name} wins. Paper beats rock")
                     wins.append(p2_name)
                     loses.append(p1_name)
-            
+            # ORIGINAL
+            # player 1 (server) waits for player 2 to input valid answer
+            while p2Move not in moves:
+                    print(f"Waiting for a valid answer from {p2_name}")
+                    p2Move = conn.recv(HEADER).decode(FORMAT)
+                    start_rps(p1Move, p2Move)
+                
             # player 1 inputs invalid answer
-            while p1Move not in moves:
+            if p1Move not in moves:
                 print("Sorry, not a valid move. Try again:")
                 p1Move = make_a_move()
                 p1Move = p1Move.lower()
+                conn.send(p1Move.encode()) # send revised answer
                 start_rps(p1Move, p2Move)
 
             # player 1 waits for player 2 to input valid answer
@@ -95,15 +101,12 @@ def start_rps(p1Move, p2Move):
         
         elif play_again.lower() == "y":
             p1Move = make_a_move()
-            conn.send(p1Move.encode())  # send data to the client
+            conn.send(p1Move.encode(FORMAT))  # send data to the client
             p2Move = conn.recv(HEADER).decode(FORMAT) # receiving p2's move
             start_rps(p1Move, p2Move)
 
-     
-
 
 def server_program():
-
     global host, port, HEADER, FORMAT, SERVER, conn
     # get the hostname
     host = socket.gethostname()
@@ -128,20 +131,20 @@ def server_program():
     conn.send(p1_name.encode(FORMAT))
     p2_name = conn.recv(HEADER).decode(FORMAT)
     print(f"You are player 1. You are now playing with {p2_name}")
-
-    p1_move = make_a_move()
+    
     connected = True
     while connected:
-        conn.send(p1_move.encode())  # send data to the client
+        p1_move = make_a_move()
+        conn.send(p1_move.encode(FORMAT))  # send data to the client
         p2_move = conn.recv(HEADER).decode(FORMAT) # receiving p2's move
-        if not p2_move:
-            # if data is not received break
-            break
         
         print(Fore.YELLOW + f"[{p1_name} - {socket.gethostbyname(host)}]")
-        print(Fore.CYAN, f"{p2_name} did {p2_move}")
-        
+        print(Fore.CYAN, f"You did {p1_move}. {p2_name} did {p2_move}")
+
         start_rps(p1_move, p2_move)
+
+        if p1_move == "exit()":
+            connected = False
 
     conn.close()  # close the connection
 
