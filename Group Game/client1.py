@@ -78,7 +78,10 @@ def start_rps(p1Move, p2Move):
         if play_again.lower() != "y":
             # sending server that client doesnt want to play again
             if play_again_resp == "n":
+                # client_socket.close()
                 break
+        
+        elif play_again.lower() == "y":
             p2Move = make_a_move()
             client_socket.send(p2Move.encode())  # send data to the client
             p1Move = client_socket.recv(HEADER).decode(FORMAT) # receiving p1's move
@@ -113,8 +116,6 @@ def client_program():
         print(Fore.CYAN, f"{p1_name} did {p1_move}")  # show in terminal
 
         start_rps(p1_move, p2_move)
-
-        # p2_move = input( " >>> ")  # again take input
 
     client_socket.close()  # close the connection
 
