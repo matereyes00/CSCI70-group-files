@@ -1,4 +1,5 @@
 import socket
+import sys
 from colorama import init
 from colorama import Fore, Back, Style
 from art import *
@@ -79,10 +80,7 @@ def start_rps(p1Move, p2Move):
         conn.send(play_again.encode(FORMAT))
         play_again_resp = conn.recv(HEADER).decode(FORMAT)
         if play_again.lower() != "y":
-            # sending to client that the server doesn't want to play again
-            if play_again_resp == "n":
-                # conn.close()
-                break
+            sys.exit()
         
         elif play_again.lower() == "y":
             p1Move = make_a_move()
