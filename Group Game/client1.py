@@ -61,20 +61,19 @@ def start_rps(p1Move, p2Move):
                     loses.append(p1_name)
 
             # player 2 (client) waits for player 1 to input valid answer
-            elif p1Move not in moves:
+            while p1Move not in moves:
                 print(f"Waiting for a valid answer from {p1_name}")
-                client_socket.send(p2Move.encode())
                 p1Move = client_socket.recv(HEADER).decode(FORMAT)
                 start_rps(p1Move, p2Move)
-            
+
             # player 2 inputs invalid answer
             while p2Move not in moves:
                 print("Sorry, not a valid move. Try again:")
                 p2Move = make_a_move()
                 p2Move = p2Move.lower()
-                client_socket.send(p2Move.encode()) # sending revised answer
+                client_socket.send(p2Move.encode()) # send revised answer
                 start_rps(p1Move, p2Move)
-        
+
         print("================================")
         play_again = input("Play again? (y/n): ")
         client_socket.send(play_again.encode(FORMAT))
@@ -120,9 +119,6 @@ def client_program():
         print(Fore.CYAN, f"You did {p2_move}. {p1_name} did {p1_move}")  # show in terminal
 
         start_rps(p1_move, p2_move)
-
-        if p2_move == "exit()":
-            connected = False
 
     client_socket.close()  # close the connection
 

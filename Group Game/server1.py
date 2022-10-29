@@ -15,8 +15,6 @@ def make_a_move():
 
 def start_rps(p1Move, p2Move):
     moves = ["scissors", "paper", "rock"]
-    # p1_name_answers = []
-    # p2_name_answers = []
     wins = []
     loses = []
     while True:
@@ -62,22 +60,19 @@ def start_rps(p1Move, p2Move):
                     print(f"{p2_name} wins. Paper beats rock")
                     wins.append(p2_name)
                     loses.append(p1_name)
-            
             # ORIGINAL
             # player 1 (server) waits for player 2 to input valid answer
-            # ⚠️ this does not run
-            elif p2Move not in moves:
-                print(f"Waiting for a valid answer from {p2_name}")
-                conn.send(p1Move.encode())
-                p2Move = conn.recv(HEADER).decode(FORMAT)
-                start_rps(p1Move, p2Move)
-            
+            while p2Move not in moves:
+                    print(f"Waiting for a valid answer from {p2_name}")
+                    p2Move = conn.recv(HEADER).decode(FORMAT)
+                    start_rps(p1Move, p2Move)
+                
             # player 1 inputs invalid answer
-            while p1Move not in moves:
+            if p1Move not in moves:
                 print("Sorry, not a valid move. Try again:")
                 p1Move = make_a_move()
                 p1Move = p1Move.lower()
-                conn.send(p1Move.encode()) # sending revised answer
+                conn.send(p1Move.encode()) # send revised answer
                 start_rps(p1Move, p2Move)
 
         print("================================")
