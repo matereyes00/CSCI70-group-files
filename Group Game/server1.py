@@ -5,6 +5,9 @@ from colorama import Fore, Back, Style
 from art import *
 init()
 
+wins = []
+loses = []
+
 def display_title():
     game_title=text2art("RPS",font='block',chr_ignore=True)
     print(game_title)
@@ -14,12 +17,18 @@ def make_a_move():
     player_move = input(">>> ")
     return player_move
 
+def scoreboard():
+    p1_score = wins.count(p1_name)
+    p2_score = wins.count(p2_name)
+
+    print(f"{p1_name}'s score: {p1_score}")
+    print(f"{p2_name}'s score: {p2_score}")
+
 def start_rps(p1Move, p2Move):
     moves = ["scissors", "paper", "rock"]
     # p1_name_answers = []
     # p2_name_answers = []
-    wins = []
-    loses = []
+    
     while True:
         p1Move = p1Move.lower()
         p2Move = p2Move.lower()
@@ -75,7 +84,9 @@ def start_rps(p1Move, p2Move):
             while p2Move not in moves:
                 print(f"Waiting for a valid answer from {p2_name}")
                 # start_rps(p1Move, p2Move)
-
+                
+        scoreboard()
+        
         play_again = input("Play again? (y/n): ")
         conn.send(play_again.encode(FORMAT))
         play_again_resp = conn.recv(HEADER).decode(FORMAT)
@@ -87,6 +98,8 @@ def start_rps(p1Move, p2Move):
             conn.send(p1Move.encode())  # send data to the client
             p2Move = conn.recv(HEADER).decode(FORMAT) # receiving p2's move
             start_rps(p1Move, p2Move)
+
+     
 
 
 def server_program():
