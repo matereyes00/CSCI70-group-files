@@ -20,9 +20,10 @@ def scoreboard():
     p1_score = wins.count(p1_name)
     p2_score = wins.count(p2_name)
 
+    print(f"-{'Scoreboard':^20}-")
     print(f"{p1_name}'s score: {p1_score}")
     print(f"{p2_name}'s score: {p2_score}")
-
+    
 def start_rps(p1Move, p2Move):
     moves = ["scissors", "paper", "rock"]
     # p1_name_answers = []
@@ -83,7 +84,7 @@ def start_rps(p1Move, p2Move):
             while p2Move not in moves:
                 print(f"Waiting for a valid answer from {p2_name}")
                 # start_rps(p1Move, p2Move)
-                
+
         scoreboard()
         
         play_again = input("Play again? (y/n): ")
