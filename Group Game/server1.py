@@ -63,13 +63,14 @@ def start_rps(p1Move, p2Move):
                     wins.append(p2_name)
                     loses.append(p1_name)
             
-            # not valid option
+            # player 1 inputs invalid answer
             while p1Move not in moves:
                 print("Sorry, not a valid move. Try again:")
                 p1Move = make_a_move()
                 p1Move = p1Move.lower()
                 start_rps(p1Move, p2Move)
 
+            # player 1 waits for player 2 to input valid answer
             while p2Move not in moves:
                 print(f"Waiting for a valid answer from {p2_name}")
                 # start_rps(p1Move, p2Move)
@@ -80,7 +81,10 @@ def start_rps(p1Move, p2Move):
         if play_again.lower() != "y":
             # sending to client that the server doesn't want to play again
             if play_again_resp == "n":
+                # conn.close()
                 break
+        
+        elif play_again.lower() == "y":
             p1Move = make_a_move()
             conn.send(p1Move.encode())  # send data to the client
             p2Move = conn.recv(HEADER).decode(FORMAT) # receiving p2's move
