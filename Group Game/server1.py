@@ -71,12 +71,13 @@ def start_rps(p1Move, p2Move):
                     print(f"{p2_name} wins. Paper beats rock")
                     wins.append(p2_name)
                     loses.append(p1_name)
+            
             # ORIGINAL
             # player 1 (server) waits for player 2 to input valid answer
             while p2Move not in moves:
-                    print(f"Waiting for a valid answer from {p2_name}")
-                    p2Move = conn.recv(HEADER).decode(FORMAT)
-                    start_rps(p1Move, p2Move)
+                print(f"Waiting for a valid answer from {p2_name}")
+                p2Move = conn.recv(HEADER).decode(FORMAT)
+                start_rps(p1Move, p2Move)
                 
             # player 1 inputs invalid answer
             if p1Move not in moves:
@@ -122,8 +123,9 @@ def server_program():
 
     print("[STARTING] server is starting...")
     server_socket.listen()
-    print(f"[LISTENING] Server is listening on {SERVER}")
+    print(f"[LISTENING] Server is listening on {SERVER} and on port {port}")
     conn, address = server_socket.accept()  # accept new connection
+    print(f"Connection from {address} has been established.")
 
     display_title()
 

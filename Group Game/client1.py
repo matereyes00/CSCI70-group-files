@@ -1,5 +1,6 @@
 import socket
 import sys
+import os #  Using this module for basic operation
 from colorama import init
 from colorama import Fore, Back, Style
 from art import *
@@ -108,12 +109,18 @@ def start_rps(p1Move, p2Move):
 def client_program():
 
     global host, port, HEADER, FORMAT, client_socket
-    host = socket.gethostname()  # as both code is running on same pc
+    # host = socket.gethostname()  # as both code is running on same pc
     port = 5000  # socket server port number
     HEADER = 64 
     FORMAT = 'utf-8'
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+
+    # ⚠️ you have to specify the host ip address you want to connect to
+    print("Please input the Ip address of the server")
+    host = input("")
+    # client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    # client_socket.bind((host, port)) 
     client_socket.connect((host, port))  # connect to the server
 
     global p2_name, p1_name, p2_move, p1_move
