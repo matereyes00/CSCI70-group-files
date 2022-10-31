@@ -107,7 +107,7 @@ def client_program():
 
     global host, port, HEADER, FORMAT, client_socket
     # host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
+    # port = 6006  # socket server port number
     HEADER = 64 
     FORMAT = 'utf-8'
 
@@ -116,6 +116,8 @@ def client_program():
     # ⚠️ you have to specify the host ip address you want to connect to
     print("Please input the Ip address of the server")
     host = input("")
+    print("Please input the port of the server")
+    port = int(input(""))
     # client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     # client_socket.bind((host, port)) 
     client_socket.connect((host, port))  # connect to the server
