@@ -56,8 +56,8 @@ def start_rps(p1Move, p2Move):
                 
                 elif p2Move == moves[2]:
                     print(f"{p1_name} wins. Paper beats rock")
-                    wins.append(p2_name)
-                    loses.append(p1_name)
+                    wins.append(p1_name)
+                    loses.append(p2_name)
             
             # p1_name == ROCK
             elif p1Move == moves[2]: # rock beats scissors, rock lose paper
