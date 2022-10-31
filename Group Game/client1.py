@@ -28,9 +28,6 @@ def scoreboard():
 def start_rps(p1Move, p2Move):
     moves = ["scissors", "paper", "rock"]
 
-    #scoreboard()
-    
-
     while True:
         p1Move = p1Move.lower()
         p2Move = p2Move.lower()
