@@ -1,5 +1,6 @@
 import socket
 import sys
+from getpass import getpass
 from colorama import init
 from colorama import Fore, Back, Style
 from art import *
@@ -14,7 +15,7 @@ def display_title():
 
 def make_a_move():
     print(f"Please choose 'Rock', 'Paper', or 'Scissors'")
-    player_move = input(">>> ")
+    player_move = getpass(">>> ")
     return player_move
 
 def scoreboard():
@@ -140,7 +141,7 @@ def server_program():
         p2_move = conn.recv(HEADER).decode(FORMAT) # receiving p2's move
         
         print(Fore.YELLOW + f"[{p1_name} - {socket.gethostbyname(host)}]")
-        print(Fore.CYAN, f"You did {p1_move}. {p2_name} did {p2_move}")
+        # print(Fore.CYAN, f"You did {p1_move}. {p2_name} did {p2_move}")
 
         start_rps(p1_move, p2_move)
 

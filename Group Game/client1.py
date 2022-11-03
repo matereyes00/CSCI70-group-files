@@ -1,6 +1,6 @@
 import socket
 import sys
-import os #  Using this module for basic operation
+from getpass import getpass
 from colorama import init
 from colorama import Fore, Back, Style
 from art import *
@@ -15,7 +15,7 @@ def display_title():
 
 def make_a_move():
     print(f"Please choose 'Rock', 'Paper', or 'Scissors'")
-    player_move = input(">>> ")
+    player_move = getpass(">>> ")
     return player_move
 
 def scoreboard():
@@ -137,7 +137,7 @@ def client_program():
         p1_move = client_socket.recv(HEADER).decode(FORMAT)  # receive response
 
         print(Fore.YELLOW + f'[{p2_name} - {socket.gethostbyname(host)}]')
-        print(Fore.CYAN, f"You did {p2_move}. {p1_name} did {p1_move}")  # show in terminal
+        # print(Fore.CYAN, f"You did {p2_move}. {p1_name} did {p1_move}")  # show in terminal
 
         start_rps(p1_move, p2_move)
 
