@@ -27,17 +27,16 @@ public class TestRobot extends AdvancedRobot {
 	 */
 	public void run() {
 		// Set colors
-		setBodyColor(new Color(0, 200, 0));
+		setBodyColor(new Color(75, 0, 130));
 		setGunColor(new Color(0, 150, 50));
-		setRadarColor(new Color(0, 100, 100));
+		setRadarColor(new Color(138, 43, 226));
 		setBulletColor(new Color(255, 255, 100));
 		setScanColor(new Color(255, 200, 200));
 
 		// Loop forever
 		while (true) {
-            scan();
 			// Tell the game we will want to move ahead 40000 -- some large number
-			setAhead(40000);
+			setAhead(400000);
 			movingForward = true;
 			// Tell the game we will want to turn right 90
 			setTurnRight(90);
@@ -51,14 +50,17 @@ public class TestRobot extends AdvancedRobot {
 			waitFor(new TurnCompleteCondition(this));
 			// Note:  We are still moving ahead now, but the turn is complete.
 			// Now we'll turn the other way...
-			setTurnLeft(180);
+			setTurnLeft(90);
 			// ... and wait for the turn to finish ...
 			waitFor(new TurnCompleteCondition(this));
 			// ... then the other way ...
-			setTurnRight(180);
+			setTurnLeft(180);
 			// .. and wait for that turn to finish.
 			waitFor(new TurnCompleteCondition(this));
 			// then back to the top to do it all again
+			setTurnRight(90);
+			waitFor(new TurnCompleteCondition(this));
+			scan();
 		}
 	}
 
@@ -123,11 +125,11 @@ public class TestRobot extends AdvancedRobot {
 		}
 	}
 
-    public void onHitByBullet(HitByBulletEvent e) {
+    /*public void onHitByBullet(HitByBulletEvent e) {
 		turnRight(normalRelativeAngleDegrees(90 - (getHeading() - e.getHeading())));
 
 		ahead(dist);
 		dist *= -1;
 		scan();
-	}
+	}*/
 }
