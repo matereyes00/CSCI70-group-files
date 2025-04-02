@@ -111,12 +111,11 @@ def server_program():
     global host, port, HEADER, FORMAT, SERVER, conn
     # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
+    port = 6000  # initiate port no above 1024
     HEADER = 64 
     FORMAT = 'utf-8'
     SERVER = socket.gethostbyname(socket.gethostname()) #get SERVER automatically for u
     global p2_name, p1_name, p2_move, p1_move
-
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # get instance
     server_socket.bind((host, port))  # bind host address and port together
